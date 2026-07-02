@@ -1,8 +1,11 @@
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage, SystemMessage
+from config.settings import Settings
 
-llm_model = "qwen3:8b"
-llm_provider = "ollama"
+settings = Settings()
+
+llm_model = settings.llm_model
+llm_provider = settings.llm_provider
 llm_temperature = 0.0
 
 
@@ -18,7 +21,7 @@ class ChatService:
         )
     def generate_answer(self, query: str, context):
         RAG_Prompt = """
-        Use the given Context give an asnwer to the query
+        Use the given Context give an answer to the query
         <context>
         {context}
         </context>
@@ -30,7 +33,7 @@ class ChatService:
         Answer: 
         """
 
-        System_Promt = """You are a helpful AI assistant for customer support that answers questions based on provided context.
+        System_Prompt = """You are a helpful AI assistant for customer support that answers questions based on provided context.
 
                             IMPORTANT RULES:
                             1. For questions about policies, returns, shipping, sizing, or support: Answer ONLY using the provided context and include citations
@@ -42,7 +45,7 @@ class ChatService:
         RAG_Prompt = RAG_Prompt.format(context= context, query = query)
         
         messages=[
-            {"role": "system", "content": SystemMessage(System_Promt)},
+            {"role": "system", "content": SystemMessage(System_Prompt)},
             {"role": "user", "content": HumanMessage(RAG_Prompt)}
                 ]
 
@@ -72,5 +75,6 @@ class ChatService:
             yield buffer.lstrip()
 
 
+chat = ChatService()
     
     

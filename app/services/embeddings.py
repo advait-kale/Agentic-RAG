@@ -1,6 +1,8 @@
 from langchain_ollama import OllamaEmbeddings
+from config.settings import Settings
 
-embedding_model = "qwen3-embedding:0.6b"
+settings = Settings()
+embedding_model = settings.embedding_model
 
 class Embedding:
     def __init__(self):
