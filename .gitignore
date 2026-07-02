@@ -3,3 +3,5 @@ data/
 .claude/
 claude.md
 IMPROVEMENTS.md
+__pycache__/
+*.pyc
