@@ -5,3 +5,6 @@ claude.md
 IMPROVEMENTS.md
 __pycache__/
 *.pyc
+.env
+FETCH_EMAILS_DESIGN.md
+TOOLS_ARCHITECTURE.md

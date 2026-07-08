@@ -1,18 +1,25 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     #embedding.py
-    embedding_model:str = "qwen3-embedding:0.6b"
+    embedding_model: str = "qwen3-embedding:0.6b"
 
     #chat.py
-    llm_model:str = "qwen3:8b"
-    llm_provider:str = "ollama"
+    llm_model: str = "qwen3:8b"
+    llm_provider: str = "ollama"
 
     #SupaBase Configs
-
     project_url: str = "https://xpieiqppxhmwtxdgmhua.supabase.co"
-    anon_public_key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaWVpcXBweGhtd3R4ZGdtaHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5OTY5MTQsImV4cCI6MjA5ODU3MjkxNH0.8M5GRIgvyihv4tzmdtPOegd78fuXuQZeJD0mkhxWGfg"
-    #secret
-    service_role: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwaWVpcXBweGhtd3R4ZGdtaHVhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4Mjk5NjkxNCwiZXhwIjoyMDk4NTcyOTE0fQ.MEM76aB9Qksn-Nidd7Qm5DJy_AJ_9qHC2MjUmTp0aKA"
+    anon_public_key: str          # from .env ANON_PUBLIC_KEY
+    service_role: str             # from .env SERVICE_ROLE  (secret)
 
+    # Email  (from .env)
+    email_address: str            # EMAIL_ADDRESS
+    app_password: str             # APP_PASSWORD  (secret)
+
+setting = Settings()
+
+def get_settings() -> Settings:
+    return setting
