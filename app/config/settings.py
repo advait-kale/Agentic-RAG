@@ -16,8 +16,16 @@ class Settings(BaseSettings):
     service_role: str             # from .env SERVICE_ROLE  (secret)
 
     # Email  (from .env)
-    email_address: str            # EMAIL_ADDRESS
-    app_password: str             # APP_PASSWORD  (secret)
+    email_address: str            # EMAIL_ADDRESS  (still used for direct-to-me importance signal)
+    app_password: str = ""        # APP_PASSWORD  (legacy IMAP path; unused on Gmail API/OAuth)
+
+    gmail_client_secret: str = "client_secret.json"   # OAuth client-ID file (repo root)
+    gmail_token: str = "gmail-token.json"             # cached access/refresh token
+
+    # Email fetch / importance knobs
+    email_fetch_limit: int = 50
+    priority_senders: list[str] = []
+    importance_keywords: list[str] = ["invoice", "deadline", "action required", "urgent"]
 
 setting = Settings()
 

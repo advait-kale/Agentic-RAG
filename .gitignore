@@ -8,3 +8,7 @@ __pycache__/
 .env
 FETCH_EMAILS_DESIGN.md
 TOOLS_ARCHITECTURE.md
+testing_gmail.py
+client_secret*.json
+gmail-token.json
+gmail_token.json
