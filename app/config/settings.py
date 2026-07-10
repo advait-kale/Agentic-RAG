@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     app_password: str = ""        # APP_PASSWORD  (legacy IMAP path; unused on Gmail API/OAuth)
 
     gmail_client_secret: str = "client_secret.json"   # OAuth client-ID file (repo root)
-    gmail_token: str = "gmail-token.json"             # cached access/refresh token
+    gmail_token: str = "gmail_token.json"             # cached access/refresh token (simplegmail default = underscore)
 
     # Email fetch / importance knobs
     email_fetch_limit: int = 50
