@@ -3,16 +3,13 @@
 import asyncio
 
 from GmailAPI import gmailAPI
-from rich.console import Console
-from rich.pretty import Pretty
-from rich.panel import Panel
 
 from langchain_core.documents import Document
 
+from sql.database import db
 from app.services.chunking import chunker
 from app.services.embeddings import embedding
 
-console = Console()
 
 async def seed_mail():
     mail_record = gmailAPI.mail_body()
@@ -37,4 +34,12 @@ async def seed_mail():
 
     for c, v in zip(chunked_mail, embeded_chunks):
         c["embedding"] = v
+    
+    db.connect()
+    db.upsert_chunks(chunked_mail)
+
+if __name__ == "__main__":
+    asyncio.run(seed_mail())
+
+
         

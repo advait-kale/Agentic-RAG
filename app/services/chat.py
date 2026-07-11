@@ -1,6 +1,6 @@
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage, SystemMessage
-from config.settings import Settings
+from app.config.settings import Settings
 
 settings = Settings()
 
@@ -19,7 +19,7 @@ class ChatService:
             # max_tokens = 
             # timeout = 
         )
-    def generate_answer(self, query: str, context):
+    async def generate_answer(self, query: str, context):
         RAG_Prompt = """
         Use the given Context give an answer to the query
         <context>
@@ -45,8 +45,8 @@ class ChatService:
         RAG_Prompt = RAG_Prompt.format(context= context, query = query)
         
         messages=[
-            {"role": "system", "content": SystemMessage(System_Prompt)},
-            {"role": "user", "content": HumanMessage(RAG_Prompt)}
+            SystemMessage(System_Prompt),
+            HumanMessage(RAG_Prompt),
                 ]
 
         buffer = ""

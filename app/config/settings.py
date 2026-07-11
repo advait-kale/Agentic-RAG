@@ -12,6 +12,7 @@ class Settings(BaseSettings):
 
     #SupaBase Configs
     project_url: str = "https://xpieiqppxhmwtxdgmhua.supabase.co"
+    
     anon_public_key: str          # from .env ANON_PUBLIC_KEY
     service_role: str             # from .env SERVICE_ROLE  (secret)
 
