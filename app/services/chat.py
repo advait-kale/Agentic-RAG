@@ -1,5 +1,5 @@
 from langchain.chat_models import init_chat_model
-from langchain.messages import HumanMessage, SystemMessage
+from langchain.messages import HumanMessage, SystemMessage, AIMessage
 from app.config.settings import Settings
 
 settings = Settings()
@@ -21,7 +21,10 @@ class ChatService:
         )
     async def generate_answer(self, query: str, context):
         RAG_Prompt = """
-        Use the given Context give an answer to the query
+        Use the given Context give an answer to the query.
+        Name of the sender and due date if available if not don't mention it.
+        Any links present should be at the end of the message 
+        
         <context>
         {context}
         </context>
@@ -33,6 +36,13 @@ class ChatService:
         Answer: 
         """
 
+        college_context = """VIT terms
+            1. CAT-1 exam, CAT-2 open notes (Hand written), FAT final exam
+            2. DA digital assignment
+            3. College events dates
+            4. Emails from teaher reguarding DA (Digital assignment)
+        """
+
         System_Prompt = """You are a helpful AI assistant for customer support that answers questions based on provided context.
 
                             IMPORTANT RULES:
@@ -40,12 +50,19 @@ class ChatService:
                             2. For general greetings or casual conversation: You can respond naturally and friendly
                             3. For questions outside your knowledge base: Politely redirect to relevant policies or suggest contacting support
                             4. Be concise but comprehensive
-                            5. Maintain a helpful, professional tone"""
+                            5. Maintain a helpful, professional tone
+                            6. The mail should ends with a 
+                            Disclaimer:
+                                This message was sent from Vellore Institute of Technology.  The contents of this email may contain legally protected confidential or privileged information of “Vellore Institute of Technology”.  
+                                If you are not the intended recipient, you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately and destroy all copies of this message and any attachments. 
+                                If you have received this email in error, please promptly notify the sender by reply email and delete the original email and any backup copies without reading them.
+        """
         
+
         RAG_Prompt = RAG_Prompt.format(context= context, query = query)
         
         messages=[
-            SystemMessage(System_Prompt),
+            SystemMessage(System_Prompt + "\n\n" + college_context),
             HumanMessage(RAG_Prompt),
                 ]
 

@@ -5,6 +5,13 @@ from typing import List, Dict
 from app.config.settings import Settings
 import asyncio
 
+from rich.console import Console
+from rich.panel import Panel
+from rich.pretty import Pretty
+
+console = Console()
+
+
 settings = Settings()
 
 class Retrieve:
@@ -38,6 +45,6 @@ class Retrieve:
 retrieve = Retrieve()
 
 if __name__ == "__main__":
-    query = "Is there any security mail ?"
+    query = "is there any mail from a teacher Kumran k"
     result = asyncio.run(retrieve.answer(query))
-    print(result)
+    console.print(Panel(Pretty(result)))   

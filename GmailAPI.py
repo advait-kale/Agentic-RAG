@@ -17,7 +17,6 @@ class GmailAPI:
         raw = m.plain or m.html or ""
         if "<" in raw and ">" in raw:            # html → text
             raw = BeautifulSoup(raw, "html.parser").get_text(" ")
-        raw = re.sub(r"https?://\S+", "", raw)   # kill tracking urls
         raw = re.sub(r"[\u200b-\u200f\ufeff\u00ad]", "", raw)  # zero-width junk
         raw = re.sub(r"\s+", " ", raw).strip()   # collapse whitespace
         return raw
@@ -25,7 +24,7 @@ class GmailAPI:
     def mail_body(self) -> List[dict]:
         # -> testing
         query_params_1 = {
-            "newer_than": (2, "day")
+            "newer_than": (3, "day")
         }
 
         messages = self.client().get_messages(query=construct_query(query_params_1))
