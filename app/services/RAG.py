@@ -45,6 +45,6 @@ class Retrieve:
 retrieve = Retrieve()
 
 if __name__ == "__main__":
-    query = "is there any mail from a teacher Kumran k"
+    query = "Summarize all the internship mail with their due dates"
     result = asyncio.run(retrieve.answer(query))
     console.print(Panel(Pretty(result)))   

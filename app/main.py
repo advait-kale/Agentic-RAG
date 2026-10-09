@@ -13,3 +13,7 @@ async def startup_event():
 @app.post("/query")
 async def query(query: str):
     return await retrieve.answer(query)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
