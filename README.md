@@ -77,13 +77,6 @@ uv run python run.py
 
 The server listens at `http://127.0.0.1:8000`. Interactive API documentation is available at `http://127.0.0.1:8000/docs`.
 
-Ask a question using the `/query` query parameter:
-
-```bash
-curl -X POST "http://127.0.0.1:8000/query?query=Summarize%20recent%20internship%20emails%20and%20their%20due%20dates"
-```
-
-The endpoint returns the generated answer as a string. It requires indexed email data in Supabase and a running Ollama service.
 
 ## Index recent email
 
@@ -128,11 +121,3 @@ sql/
 GmailAPI.py                    Gmail OAuth and message cleanup
 run.py                         Uvicorn entry point
 ```
-
-## Known limitations
-
-- Only `POST /query` and Gmail indexing are currently implemented; there is no `/seed` API route.
-- The answer endpoint collects the model stream and returns the completed answer; it does not stream an HTTP response.
-- Gmail fetch window is currently fixed to three days in `GmailAPI.py`.
-- Chunk IDs are randomly generated when indexing, so repeating a seed can create duplicate chunks for the same email.
-- Local model downloads and external Gmail/Supabase credentials are needed; the prebuilt files under `dist/` are not a substitute for configuring these services.
